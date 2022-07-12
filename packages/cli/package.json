@@ -39,7 +39,7 @@
     "@types/node": "^14.17.14"
   },
   "dependencies": {
-    "@monodeploy/node": "workspace:^3.1.0",
+    "@monodeploy/node": "workspace:*",
     "@monodeploy/types": "workspace:^3.1.0",
     "@yarnpkg/core": "^3.2.1",
     "@yarnpkg/fslib": "^2.6.2",

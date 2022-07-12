@@ -3076,7 +3076,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@monodeploy/node@workspace:^3.1.0, @monodeploy/node@workspace:packages/node":
+"@monodeploy/node@workspace:*, @monodeploy/node@workspace:packages/node":
   version: 0.0.0-use.local
   resolution: "@monodeploy/node@workspace:packages/node"
   dependencies:
@@ -15974,7 +15974,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "monodeploy@workspace:packages/cli"
   dependencies:
-    "@monodeploy/node": "workspace:^3.1.0"
+    "@monodeploy/node": "workspace:*"
     "@monodeploy/types": "workspace:^3.1.0"
     "@types/node": ^14.17.14
     "@yarnpkg/core": ^3.2.1
