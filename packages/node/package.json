@@ -1,4 +1,5 @@
 {
+  "//": "This is a comment that I have inserted to test whether yarn updates dependencies that are installed using the git-protocol or not.",
   "name": "@monodeploy/node",
   "version": "3.1.0",
   "repository": {
