@@ -29,7 +29,7 @@ export const generateChangeset = async ({
     for (const [packageName, newVersion] of nextTags.entries()) {
         const previousVersion = previousTags.get(packageName) ?? null
         const versionStrategy = versionStrategies.get(packageName)
-        const changelog = await generateChangelogEntry({
+        let changelog = await generateChangelogEntry({
             config,
             context,
             packageName,
@@ -37,6 +37,9 @@ export const generateChangeset = async ({
             newVersion,
             commits: versionStrategy?.commits ?? [],
         })
+        if (changelog !== null) {
+            changelog = makeBumpOnlyFilter(packageName)(changelog)
+        }
         changesetData[packageName] = {
             version: newVersion,
             previousVersion: previousVersion,
@@ -55,4 +58,23 @@ export const generateChangeset = async ({
     }
 
     return changesetData
+}
+
+
+const BLANK_LINE = "\n\n"
+
+function makeBumpOnlyFilter(packageName: string) {
+    return (newEntry: string) => {
+        // When force publishing, it is possible that there will be no actual changes, only a version bump.
+        if (!newEntry.split("\n").some((line) => line.startsWith("*"))) {
+            // Add a note to indicate that only a version bump has occurred.
+            // TODO: actually list the dependencies that were bumped
+            const message = `**Note:** Version bump only for package ${packageName}`;
+
+            // the extra blank lines preserve the whitespace delimiting releases
+            return [newEntry.trim(), message, BLANK_LINE].join(BLANK_LINE);
+        }
+
+        return newEntry;
+    };
 }
